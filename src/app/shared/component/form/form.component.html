@@ -1,0 +1,187 @@
+<div class="card">
+  <div class="card-body">
+    <p class="alert alert-info text-center">Student Registration</p>
+    <form #signUpForm="ngForm" (ngSubmit)="onAddStudent()">
+      <div class="form-group">
+        <label for="fullName">Full Name*</label>
+        <input
+          name="fullName"
+          type="text"
+          class="form-control"
+          ngModel
+          #fullName="ngModel"
+          required
+          pattern="[a-zA-Z ]*"
+          minlength="8"
+          maxlength="20"
+        />
+        <strong
+          *ngIf="fullName.touched && fullName.hasError('required')"
+          class="text-danger"
+        >
+          Fullname is required...</strong
+        >
+        <ng-container *ngIf="fullName.dirty">
+          <strong *ngIf="fullName.hasError('pattern')" class="text-danger">
+            Enter valid name..!</strong
+          >
+          <strong *ngIf="fullName.hasError('minlength')" class="text-danger">
+            full name should be
+            {{ fullName.errors?.["minlength"].requiredLength }} and actual
+            length is {{ fullName.errors?.["minlength"].actualLength }}</strong
+          >
+          <strong *ngIf="fullName.hasError('pattern')" class="text-danger">
+            Enter valid name..!</strong
+          >
+          <strong *ngIf="fullName.hasError('maxlength')" class="text-danger">
+            Maximum length is
+            {{ fullName.errors?.["maxlength"].requiredLength }}
+          </strong>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <label for="email">Email*</label>
+        <input
+          name="email"
+          type="text"
+          class="form-control"
+          ngModel
+          #email="ngModel"
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,100}$"
+        />
+
+        <strong
+          *ngIf="email.touched && email.hasError('required')"
+          class="text-danger"
+          >Email is required field..!</strong
+        >
+        <strong
+          *ngIf="email.dirty && email.hasError('pattern')"
+          class="text-danger"
+        >
+          Please enter a valid email address (example: ronak@gmail.com).</strong
+        >
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number*</label>
+        <input
+          name="phoneNumber"
+          type="text"
+          class="form-control"
+          ngModel
+          #phoneNumber="ngModel"
+          required
+          pattern="^[0-9]+$"
+          minlength="10"
+          maxlength="10"
+        />
+        <strong
+          *ngIf="phoneNumber.touched && phoneNumber.hasError('required')"
+          class="text-danger"
+          >Phone number is required..!!</strong
+        >
+
+        <ng-container *ngIf="phoneNumber.dirty">
+          <strong *ngIf="phoneNumber.hasError('pattern')" class="text-danger"
+            >Enter valid phone number..!!</strong
+          >
+          <strong *ngIf="phoneNumber.hasError('minlength')" class="text-danger"
+            >phone number should be
+            {{ phoneNumber.errors?.["minlength"].requiredLength }} and actual
+            length is {{ phoneNumber.errors?.["minlength"].actualLength }}
+          </strong>
+        </ng-container>
+      </div>
+
+      <div class="form-group d-flex">
+        <label>Gender*</label>
+        <div *ngFor="let gender of genderArr">
+          <input
+            type="radio"
+            name="gender"
+            [value]="gender"
+            ngModel
+            [(ngModel)]="selectedGender"
+            required
+          />
+          {{ gender }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="selectCourse">Select Course*</label>
+        <select
+          name="selectCourse"
+          type="text"
+          class="form-control"
+          ngModel
+          id="selectCourse"
+          #selectCourse="ngModel"
+          required
+        >
+          <option [value]="course" *ngFor="let course of courseArr">
+            {{ course }}
+          </option>
+        </select>
+        <strong
+          *ngIf="selectCourse.touched && selectCourse.hasError('required')"
+          class="text-danger"
+        >
+          Select course..
+        </strong>
+      </div>
+      <div class="form-group">
+        <label for="address">Address*</label>
+        <textarea
+          name="address"
+          type="text"
+          class="form-control"
+          ngModel
+          #address="ngModel"
+          required
+          pattern="[a-zA-Z ]*"
+          minlength="8"
+          maxlength="30"
+        ></textarea>
+        <strong
+          *ngIf="address.touched && address.hasError('required')"
+          class="text-danger"
+          >Adddress is required field...!</strong
+        >
+        <strong
+          *ngIf="address.dirty && address.hasError('pattern')"
+          class="text-danger"
+        >
+          Enter valid address without using numbers..</strong
+        >
+         <strong
+          *ngIf="address.dirty && address.hasError('minlength')"
+          class="text-danger"
+        >
+         address should be have minimum {{address.errors?.['minlength'].requiredLength}}
+         and actual length is {{address.errors?.['minlength'].actualLength}}</strong
+        >
+      </div>
+      <div class="form-group">
+        <input
+          type="checkbox"
+          name="term"
+          [(ngModel)]="acceptedTerms"
+          required
+        />
+        <label>Accept Terms & Conditions</label>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="w-100"
+        type="submit"
+        [disabled]="signUpForm.invalid"
+      >
+        Sign Up
+      </button>
+    </form>
+  </div>
+</div>
+<p class="alert alert-success" *ngIf="signUpForm.valid">Form is Valid</p>
+.
