@@ -27,10 +27,17 @@ export class FormComponent implements OnInit {
   @ViewChild('signUpForm') signUpForm !: NgForm;
 
   onAddStudent(){
-    if(this.signUpForm.valid){
-      console.log("Form is Valid..!");
-      this._snackbar.openSnackbar('FORM IS VALID..!!!');
+    if(this.signUpForm.invalid){
+      this.signUpForm.form.markAllAsTouched()
+      return 
+    }
+      else{
+        this._snackbar.openSnackbar('FORM IS VALID..!!!');
       this.signUpForm.reset()
+
+      
+      // console.log("Form is Valid..!");
+      
       
 
     }
